@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm4-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-14.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jdom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jna-utils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jna.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsr166e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/picocontainer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/trove4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/oromatcher.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/extensions.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/openapi.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

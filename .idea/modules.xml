@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/intellij-plattform/intellij-plattform.iml" filepath="$PROJECT_DIR$/intellij-plattform/intellij-plattform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wl-parser/wl-parser.iml" filepath="$PROJECT_DIR$/wl-parser/wl-parser.iml" />
+    </modules>
+  </component>
+</project>
