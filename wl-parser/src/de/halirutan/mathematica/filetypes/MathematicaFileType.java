@@ -25,9 +25,6 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import de.halirutan.mathematica.Mathematica;
 import de.halirutan.mathematica.MathematicaLanguage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 
 /**

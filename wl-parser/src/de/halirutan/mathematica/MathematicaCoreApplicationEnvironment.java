@@ -32,20 +32,6 @@ public class MathematicaCoreApplicationEnvironment extends CoreApplicationEnviro
     super(parentDisposable);
 
     registerFileType(MathematicaFileType.INSTANCE, "m");
-
     addExplicitExtension(LanguageParserDefinitions.INSTANCE, MathematicaLanguage.INSTANCE, new MathematicaParserDefinition());
-  }
-  protected CoreJavaDirectoryService createJavaDirectoryService() {
-    return new CoreJavaDirectoryService();
-  }
-
-  public <T> void addExplicitExtension(final ClassExtension<T> instance, final Class clazz, final T object) {
-    instance.addExplicitExtension(clazz, object);
-    Disposer.register(getParentDisposable(), new Disposable() {
-      @Override
-      public void dispose() {
-        instance.removeExplicitExtension(clazz, object);
-      }
-    });
   }
 }

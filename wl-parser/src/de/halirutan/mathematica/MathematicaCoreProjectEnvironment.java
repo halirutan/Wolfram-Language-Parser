@@ -38,60 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public class MathematicaCoreProjectEnvironment extends CoreProjectEnvironment {
-  private final JavaFileManager myFileManager;
-  private final PackageIndex myPackageIndex;
-
   public MathematicaCoreProjectEnvironment(Disposable parentDisposable, CoreApplicationEnvironment applicationEnvironment) {
     super(parentDisposable, applicationEnvironment);
-
-    myProject.registerService(PsiElementFactory.class, new PsiElementFactoryImpl(myPsiManager));
-    myProject.registerService(JavaPsiImplementationHelper.class, createJavaPsiImplementationHelper());
-    myProject.registerService(PsiResolveHelper.class, new PsiResolveHelperImpl(myPsiManager));
-    myProject.registerService(LanguageLevelProjectExtension.class, new CoreLanguageLevelProjectExtension());
-    myProject.registerService(JavaResolveCache.class, new JavaResolveCache(myMessageBus));
-    myProject.registerService(JavaCodeStyleSettingsFacade.class, new CoreJavaCodeStyleSettingsFacade());
-    myProject.registerService(JavaCodeStyleManager.class, new CoreJavaCodeStyleManager());
-    registerProjectExtensionPoint(PsiElementFinder.EP_NAME, PsiElementFinder.class);
-
-    myPackageIndex = createCorePackageIndex();
-    myProject.registerService(PackageIndex.class, myPackageIndex);
-
-    myFileManager = createCoreFileManager();
-    myProject.registerService(JavaFileManager.class, myFileManager);
-
-    JavaPsiFacadeImpl javaPsiFacade = new JavaPsiFacadeImpl(myProject, myPsiManager, myFileManager, myMessageBus);
-    registerProjectComponent(JavaPsiFacade.class, javaPsiFacade);
-    myProject.registerService(JavaPsiFacade.class, javaPsiFacade);
-  }
-
-  protected CoreJavaPsiImplementationHelper createJavaPsiImplementationHelper() {
-    return new CoreJavaPsiImplementationHelper();
-  }
-
-  protected JavaFileManager createCoreFileManager() {
-    return new CoreJavaFileManager(myPsiManager);
-  }
-
-  protected PackageIndex createCorePackageIndex() {
-    return new CorePackageIndex();
-  }
-
-  @SuppressWarnings("UnusedDeclaration")
-  public void addJarToClassPath (File path) {
-    assert path.isFile();
-
-    final VirtualFile root = getEnvironment().getJarFileSystem().findFileByPath(path + "!/");
-    if (root == null) {
-      throw new IllegalArgumentException("trying to add non-existing file to classpath: " + path);
-    }
-
-    addSourcesToClasspath(root);
-  }
-
-  public void addSourcesToClasspath(@NotNull VirtualFile root) {
-    assert root.isDirectory();
-    ((CoreJavaFileManager)myFileManager).addToClasspath(root);
-    ((CorePackageIndex)myPackageIndex).addToClasspath(root);
-    ((MockFileIndexFacade)myFileIndexFacade).addLibraryRoot(root);
   }
 }
