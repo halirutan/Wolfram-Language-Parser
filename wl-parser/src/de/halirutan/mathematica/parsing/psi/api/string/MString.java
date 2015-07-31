@@ -21,8 +21,10 @@
 
 package de.halirutan.mathematica.parsing.psi.api.string;
 
+import de.halirutan.mathematica.parsing.psi.api.Expression;
+
 /**
  * @author patrick (4/14/13)
  */
-public interface MString {
+public interface MString extends Expression{
 }

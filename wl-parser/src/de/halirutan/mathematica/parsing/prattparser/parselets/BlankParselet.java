@@ -41,17 +41,21 @@ public class BlankParselet implements InfixParselet {
   @Override
   public MathematicaParser.Result parse(MathematicaParser parser, MathematicaParser.Result left) throws CriticalParserError {
     if (!left.isValid()) return MathematicaParser.notParsed();
-    PsiBuilder.Marker blankMark = left.getMark().precede();
+    PsiBuilder.Marker patternMark = left.getMark().precede();
     IElementType token = MathematicaElementTypes.BLANK_EXPRESSION;
     parser.advanceLexer();
+    final PsiBuilder.Marker blankMark = parser.mark();
     if (!parser.isNextWhitespace() && !parser.eof() && parser.getTokenType().equals(MathematicaElementTypes.IDENTIFIER)) {
       final PrefixParselet symbolParselet = ParseletProvider.getPrefixParselet(MathematicaElementTypes.IDENTIFIER);
       symbolParselet.parse(parser);
     }
-//    MathematicaParser.Result expr = parser.parseExpression(myPrecedence);
     blankMark.done(token);
-//    return MathematicaParser.result(blankMark, token, !expr.isValid() || expr.isParsed());
-    return MathematicaParser.result(blankMark, token, true);
+
+
+//    MathematicaParser.Result expr = parser.parseExpression(myPrecedence);
+    patternMark.done(MathematicaElementTypes.PATTERN_EXPRESSION);
+//    return MathematicaParser.result(patternMark, token, !expr.isValid() || expr.isParsed());
+    return MathematicaParser.result(patternMark, MathematicaElementTypes.PATTERN_EXPRESSION, true);
   }
 
   @Override

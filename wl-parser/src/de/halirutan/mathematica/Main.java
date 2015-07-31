@@ -4,16 +4,12 @@ import com.intellij.lang.FileASTNode;
 import com.intellij.mock.MockProject;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
-import com.intellij.psi.PsiWhiteSpace;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.util.ResourceUtil;
 import de.halirutan.mathematica.filetypes.MathematicaFileType;
-import de.halirutan.mathematica.parsing.MathematicaElementTypes;
 import de.halirutan.mathematica.parsing.psi.api.MathematicaPsiFile;
+import de.halirutan.mathematica.parsing.psi.util.FullFormCreator;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,69 +21,18 @@ import java.net.URL;
 
 public class Main {
 
-  private static final TokenSet atoms = TokenSet.create(
-      MathematicaElementTypes.STRING_LITERAL_EXPRESSION,
-      MathematicaElementTypes.NUMBER_EXPRESSION,
-      MathematicaElementTypes.SYMBOL_EXPRESSION,
-      MathematicaElementTypes.STRINGIFIED_SYMBOL_EXPRESSION
-
-  );
-
   public static void main(String[] args) throws IOException {
     PsiFileFactory psiFileFactory = createPsiFactory();
-    final URL source = ResourceUtil.getResource(
+    final URL fileResource = ResourceUtil.getResource(
         Main.class,
         "de/halirutan/mathematica",
-        "spacingExample.m");
-    File file = new File(source.getFile());
-    String javaSource = FileUtil.loadFile(file);
-    FileASTNode root = parseJavaSource(javaSource, psiFileFactory);
-
-    final PsiElement[] children = root.getPsi().getChildren();
-    for (PsiElement child : children) {
-      if(child instanceof PsiWhiteSpace) continue;
-      printFullForm(child);
-      System.out.println("\n");
-    }
-
-  }
-
-  private static void printFullForm(PsiElement psiElement) {
-
-    if (psiElement != null) {
-      final IElementType type = psiElement.getNode().getElementType();
-      if (atoms.contains(type)) {
-        System.out.print(psiElement.getText());
-        return;
-      }
-
-      if (psiElement instanceof PsiWhiteSpace) {
-        return;
-      }
-
-      final PsiElement[] children = psiElement.getChildren();
-      if (type == MathematicaElementTypes.FUNCTION_CALL_EXPRESSION) {
-        System.out.print(psiElement.getFirstChild().getText() + "[");
-        for (int i = 1; i < children.length; i++) {
-          PsiElement child = children[i];
-          printFullForm(child);
-        }
-        System.out.print("]");
-      } else {
-        System.out.print(psiElement.toString() + "[");
-        boolean first = true;
-        for (PsiElement child : children) {
-          if (first) {
-            first = false;
-          } else if(!(child instanceof PsiWhiteSpace)) {
-            System.out.print(",");
-          }
-          printFullForm(child);
-
-        }
-        System.out.print("]");
-
-      }
+        "Test.m");
+    File file = new File(fileResource.getFile());
+    String source = FileUtil.loadFile(file);
+    FileASTNode root = parseSource(source, psiFileFactory);
+    if (root.getPsi() instanceof MathematicaPsiFile) {
+      final String fullForm = FullFormCreator.createFullForm(root.getPsi(MathematicaPsiFile.class));
+      System.out.println(fullForm);
     }
   }
 
@@ -96,7 +41,7 @@ public class Main {
     return PsiFileFactory.getInstance(mockProject);
   }
 
-  private static FileASTNode parseJavaSource(String source, PsiFileFactory psiFileFactory) {
+  private static FileASTNode parseSource(String source, PsiFileFactory psiFileFactory) {
     PsiFile psiFile = psiFileFactory.createFileFromText("__dummy_file__.m", MathematicaFileType.INSTANCE, source);
     MathematicaPsiFile psiFile1 = (MathematicaPsiFile) psiFile;
     return psiFile1.getNode();

@@ -1,4 +1,4 @@
-VectorFieldPlot[f_, {u_, u0_?numberQ, u1_?numberQ, du_ : Automatic},
+VectorFieldPlot[f_, {_, u0_?numberQ, u1_?numberQ, du_ : Automatic},
   {v_, v0_?numberQ, v1_?numberQ, dv_ : Automatic}, opts___?OptionQ] := Module[
   {plotpoints, dua, dva, vecs, xpp, ypp, sf},
 (* -- grab options -- *)

@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="intellij-plattform" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module" module-name="intellij-plattform" exported="" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>

@@ -15,27 +15,9 @@
  */
 package de.halirutan.mathematica;
 
-import com.intellij.core.*;
-import com.intellij.mock.MockFileIndexFacade;
+import com.intellij.core.CoreApplicationEnvironment;
+import com.intellij.core.CoreProjectEnvironment;
 import com.intellij.openapi.Disposable;
-import com.intellij.openapi.roots.LanguageLevelProjectExtension;
-import com.intellij.openapi.roots.PackageIndex;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiElementFinder;
-import com.intellij.psi.PsiResolveHelper;
-import com.intellij.psi.codeStyle.JavaCodeStyleManager;
-import com.intellij.psi.codeStyle.JavaCodeStyleSettingsFacade;
-import com.intellij.psi.impl.JavaPsiFacadeImpl;
-import com.intellij.psi.impl.JavaPsiImplementationHelper;
-import com.intellij.psi.impl.PsiElementFactoryImpl;
-import com.intellij.psi.impl.file.impl.JavaFileManager;
-import com.intellij.psi.impl.source.resolve.JavaResolveCache;
-import com.intellij.psi.impl.source.resolve.PsiResolveHelperImpl;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 public class MathematicaCoreProjectEnvironment extends CoreProjectEnvironment {
   public MathematicaCoreProjectEnvironment(Disposable parentDisposable, CoreApplicationEnvironment applicationEnvironment) {

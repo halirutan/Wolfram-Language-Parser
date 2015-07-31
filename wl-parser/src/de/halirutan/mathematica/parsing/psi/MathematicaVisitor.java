@@ -23,6 +23,7 @@ package de.halirutan.mathematica.parsing.psi;
 
 import com.intellij.psi.PsiElementVisitor;
 import de.halirutan.mathematica.parsing.psi.api.*;
+import de.halirutan.mathematica.parsing.psi.api.Number;
 import de.halirutan.mathematica.parsing.psi.api.arithmetic.ArithmeticOperation;
 import de.halirutan.mathematica.parsing.psi.api.assignment.*;
 import de.halirutan.mathematica.parsing.psi.api.comparison.ComparisonOperation;
@@ -33,6 +34,8 @@ import de.halirutan.mathematica.parsing.psi.api.rules.ReplaceAll;
 import de.halirutan.mathematica.parsing.psi.api.rules.ReplaceRepeated;
 import de.halirutan.mathematica.parsing.psi.api.rules.Rule;
 import de.halirutan.mathematica.parsing.psi.api.rules.RuleDelayed;
+import de.halirutan.mathematica.parsing.psi.api.string.MString;
+import de.halirutan.mathematica.parsing.psi.impl.NumberImpl;
 
 
 /**
@@ -166,5 +169,13 @@ public class MathematicaVisitor extends PsiElementVisitor {
 
   public void visitSlot(Slot slot) {
     visitElement(slot);
+  }
+
+  public void visitString(MString string) {
+    visitElement(string);
+  }
+
+  public void visitNumber(final Number number) {
+    visitElement(number);
   }
 }
